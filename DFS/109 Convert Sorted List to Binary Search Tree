@@ -20,12 +20,12 @@ public class Solution {
         if(head == null) return null;
         if(head.next == null) return new TreeNode(head.val);
         
+        //找到中点， 用dummy来记录中点前面的一个节点
         ListNode fast = head; ListNode slow = head;
         ListNode dummy = new ListNode(-1);
         while(fast!= null && fast.next!=null){
             fast = fast.next.next;dummy = slow;
             slow = slow.next;
-            
         }
         
         TreeNode root = new TreeNode(slow.val);
