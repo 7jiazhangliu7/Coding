@@ -1,0 +1,30 @@
+https://leetcode.com/problems/permutations/
+
+public class Solution {
+    public List<List<Integer>> permute(int[] num) {
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        if (num == null || num.length == 0) {
+            return ans;
+        }
+        int len = num.length;
+        Arrays.sort(num);
+        helper(ans, new LinkedList<Integer>(), num, new boolean[num.length]);
+        return ans;
+    }
+    
+    private void helper(List<List<Integer>> ans, List<Integer> list, int[] num, boolean[] visited) {
+        if(list.size() == num.length) {
+            ans.add(new LinkedList<Integer>(list));
+        }
+        
+        for(int i = 0; i < num.length; i++) {
+            if(!visited[i]) {
+                list.add(num[i]);
+                visited[i] = true;
+                helper(ans, list, num, visited);
+                visited[i] = false;
+                list.remove(list.size()-1);
+            }
+        }
+    }
+}
