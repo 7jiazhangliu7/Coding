@@ -9,25 +9,22 @@
  */
  
  /*
- *  we need to use long here because our code will fail if the tree look like "min # max"
+ *  这里需要用long 因为 integer会溢出if test case looks like “Integer.MIN_VALUE, #, Integer.MAX_VALUE”
  *
- *  setup base cases, then let the recursion do it for you
+ *  只需要注意一下base case， 然后recursion会一直dfs下去
  *
- *
+ *  需要跟面试官确定，如果root为null，返回什么值
  */
  
 public class Solution {
     public boolean isValidBST(TreeNode root) {
         if (root == null) return true;
-        if(root.left == null && root.right == null) return true;
         return helper(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
     
     public boolean helper(TreeNode root, long min, long max) {
         if(root == null) return true;
-        
         if(root.val <= min || root.val >= max) return false;
-        
         return helper(root.left, min, root.val) && helper(root.right, root.val, max);
     }
 }
