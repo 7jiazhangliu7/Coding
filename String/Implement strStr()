@@ -1,0 +1,27 @@
+https://leetcode.com/problems/implement-strstr/
+
+public class Solution {
+    // http://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
+    public int strStr(String haystack, String needle) {
+        if(haystack == null || needle == null) return -1;
+        
+        int i = 0, j = 0;
+        for(i = 0; i <= haystack.length()-needle.length(); i++) {
+            for(j = 0; j < needle.length(); j++) {
+                if(haystack.charAt(i+j) != needle.charAt(j)) {
+                    break;
+                }
+            }
+            
+            if(j == needle.length()) {
+                return i;
+            }
+        }
+        
+        return -1;
+    }
+}
+
+这个是暴利解法，O(n^2);
+可以用kmp 算法用linear time解决：
+http://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
