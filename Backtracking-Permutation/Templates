@@ -1,0 +1,22 @@
+Template:
+http://www.shuatiblog.com/blog/2014/06/12/NineChap-Permutation/
+
+public List<List<Integer>> subsets(int[] num) {
+    List<List<Integer>> result = new ArrayList<List<Integer>>();
+    if(num == null || num.length == 0) {
+        return result;
+    }
+    Arrays.sort(num);  
+    subsetsHelper(result, new ArrayList<Integer>(), num, 0);
+    return result;
+}
+
+private void subsetsHelper(List<List<Integer>> result,
+    List<Integer> list, int[] num, int pos) {
+    result.add(new ArrayList<Integer>(list));
+    for (int i = pos; i < num.length; i++) {
+        list.add(num[i]);
+        subsetsHelper(result, list, num, i + 1);
+        list.remove(list.size() - 1);
+    }
+}
