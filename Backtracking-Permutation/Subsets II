@@ -1,0 +1,27 @@
+//https://leetcode.com/problems/subsets-ii/
+
+
+public class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] num) {
+        List<List<Integer>> result = new LinkedList<List<Integer>>();
+        if(num == null || num.length == 0) return result;
+        Arrays.sort(num);
+        helper(result, new LinkedList<Integer>(), num, 0);
+        return result;
+    }
+    
+    public void helper(List<List<Integer>> result, List<Integer> list, int[] num, int pos) {
+        result.add(new LinkedList<Integer>(list));
+        
+        for(int i = pos; i < num.length; i++) {
+            // 和subsets1 唯一区别就是，这里判断一下，是否为第一次出现（i == pos or i > pos）
+            // 如果i>pos, 就是证明是第二次出现，并且和之前的相等的话，就直接跳过，不加入list中
+            if(i > pos && num[i-1] == num[i]) {
+                continue;
+            }
+            list.add(num[i]);
+            helper(result, list, num, i+1);
+            list.remove(list.size()-1);
+        }
+    }
+}
