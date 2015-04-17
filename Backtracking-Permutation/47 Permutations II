@@ -1,1 +1,35 @@
+//https://leetcode.com/problems/permutations-ii/
 
+public class Solution {
+    public List<List<Integer>> permuteUnique(int[] num) {
+        List<List<Integer>> result = new LinkedList<List<Integer>>();
+        if(num == null || num.length == 0) return result;
+        Arrays.sort(num);
+        helper(result, new LinkedList<Integer>(), num, new boolean[num.length]);
+        return result;
+    }
+    
+    public void helper(List<List<Integer>> result, List<Integer> list, int[] num, boolean[] visited) {
+        if(list.size() == num.length) {
+            result.add(new LinkedList<Integer>(list));
+            return;
+        }
+        
+        for(int i = 0; i < num.length; i++) {
+            // 这里需要检查3个东西， 第一个是是否i>0以免出现-1 out of bound
+            // 第二需要检查当前的跟前一个是否相等， 如果相等并且前一个已经visited了
+            // 那么就跳过
+            if(i > 0 && num[i-1] == num[i] && !visited[i-1]) {
+                continue;
+            }
+            
+            if(!visited[i]) {
+                visited[i] = true;
+                list.add(num[i]);
+                helper(result, list, num, visited);
+                list.remove(list.size()-1);
+                visited[i] = false;
+            }
+        }
+    }
+}
