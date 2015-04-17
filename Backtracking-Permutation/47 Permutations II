@@ -18,7 +18,8 @@ public class Solution {
         for(int i = 0; i < num.length; i++) {
             // 这里需要检查3个东西， 第一个是是否i>0以免出现-1 out of bound
             // 第二需要检查当前的跟前一个是否相等， 如果相等并且前一个已经visited了
-            // 那么就跳过
+            // 那么就跳过， 因为dfs出来之后，如果前一个没有访问，那么就代表我们已经处理过了，退回了dfs最外边的loop
+            // 在最外层loop里，如果前一个处理过了，切两个值相同，则跳过， make sense！
             if(i > 0 && num[i-1] == num[i] && !visited[i-1]) {
                 continue;
             }
