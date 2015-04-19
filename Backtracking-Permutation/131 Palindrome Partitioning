@@ -1,0 +1,46 @@
+//https://leetcode.com/problems/palindrome-partitioning/
+
+public class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> result = new LinkedList<List<String>>();
+        if(s == null || s.length() == 0) return result;
+        
+        helper(s, result, new LinkedList<String>(), 0);
+        return result;
+    }
+    
+    public void helper(String s, List<List<String>> result, List<String> list, int start) {
+        if(start == s.length()) {
+            result.add(new LinkedList<String>(list));
+            return;
+        }
+        
+        // 这里需要i <= s.length()
+        // 因为s.substring(i,j) 取 string from s.charAt(i) -- s.charAt(j-1) !!!
+        for(int i = start+1; i <= s.length(); i++) {
+            String substr = s.substring(start, i);
+            
+            if(isPalindrome(substr)) {
+                list.add(substr);
+                helper(s, result, list, i);
+                list.remove(list.size()-1);
+            }
+        }
+    }
+    
+    public boolean isPalindrome(String s) {
+        if(s == null || s.length() == 0) return false;
+        
+        int start = 0, end = s.length()-1;
+        
+        while(start < end) {
+            if(s.charAt(start) != s.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        
+        return true;
+    }
+}
