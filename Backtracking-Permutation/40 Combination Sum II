@@ -1,0 +1,32 @@
+//https://leetcode.com/problems/combination-sum-ii/
+
+public class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> result = new LinkedList<List<Integer>>();
+        if(candidates == null || candidates.length == 0) return result;
+        
+        Arrays.sort(candidates);
+        helper(candidates, target, 0, result, new LinkedList<Integer>());
+        return result;
+    }
+    
+    public void helper(int[] candidates, int target, int start, List<List<Integer>> result, List<Integer> list) {
+        if(target == 0) {
+            result.add(new LinkedList<Integer>(list));
+            return;
+        }
+        
+        for(int i = start; i < candidates.length; i++) {
+            if(candidates[i] > target) {
+                return;
+            }
+            
+            // 检查，如果i大于start并且和前面的相等，那么则表示之前用过了，跳过
+            if(i > start && candidates[i] == candidates[i-1]) continue;
+            
+            list.add(candidates[i]);
+            helper(candidates, target-candidates[i], i+1, result, list);
+            list.remove(list.size()-1);
+        }
+    }
+}
