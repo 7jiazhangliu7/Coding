@@ -1,0 +1,43 @@
+//https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
+
+public class Solution {
+//和之前的思路一样，先binary search， 然后遇到相同的往后跳一个
+    public boolean search(int[] A, int target) {
+        if(A == null || A.length == 0) return false;
+        
+        int start = 0, end = A.length-1;
+        int mid = 0;
+        
+        while(start+1 < end) {
+            mid = (start+end)/2;
+            if(A[mid] == target) {
+                return true;
+            }
+            
+            if(A[start] < A[mid]) {
+                if(target < A[mid] && target >= A[start]) {
+                    end = mid;
+                } else {
+                    start = mid;
+                }
+            } else if (A[start] > A[mid]){
+                if(target >= A[mid] && target <= A[end]) {
+                    start = mid;
+                } else {
+                    end = mid;
+                }
+            } else {
+            // 这里要用++， 因为1 3 1 1， 如果start=mid，可能跳过中间的3
+                start++;
+            }
+        }
+        
+        if (A[start] == target) {
+            return true;
+        } else if (A[end] == target) {
+            return true;
+        }
+        
+        return false;
+    }
+}
