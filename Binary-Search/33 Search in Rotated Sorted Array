@@ -28,6 +28,7 @@ public class Solution {
             }
         }
         
+        //记得！！！ 公式中最后的两个判断！！！
         if (A[start] == target) {
             return start;
         } else if (A[end] == target) {
