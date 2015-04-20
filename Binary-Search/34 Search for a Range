@@ -1,0 +1,49 @@
+//https://leetcode.com/problems/search-for-a-range/
+
+public class Solution {
+    public int[] searchRange(int[] A, int target) {
+        int[] ans = new int[] {-1, -1};
+        if(A == null || A.length == 0) return ans;
+        
+        int start = 0, end = A.length-1;
+        int mid = 0;
+        // 用给的template， 找到第一个出现的target
+        while(start+1 < end) {
+            mid = (start+end)/2;
+            if(A[mid] < target) {
+                start = mid;
+            } else {
+                end = mid;
+            }
+        }
+        
+        if (A[start] == target) {
+            ans[0] = start;
+        } else if (A[end] == target) {
+            ans[0] = end;
+        } else {
+            return ans;
+        }
+        
+        start = 0; end = A.length-1;
+        
+        //再来一次，找到最后一个出现的
+        while(start+1 < end) {
+            mid = (start+end)/2;
+            if(A[mid] <= target) {
+                start = mid;
+            } else {
+                end = mid;
+            }
+        }
+        
+        //这里先检查end！！
+        if (A[end] == target) {
+            ans[1] = end;
+        } else if (A[start] == target) {
+            ans[1] = start;
+        } 
+            
+        return ans;
+    }
+}
