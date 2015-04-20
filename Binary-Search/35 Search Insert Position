@@ -1,0 +1,32 @@
+//https://leetcode.com/problems/search-insert-position/
+
+public class Solution {
+    public int searchInsert(int[] A, int target) {
+        if(A == null || A.length == 0) {
+            return -1;
+        }
+        
+        int start = 0, end = A.length-1;
+        int mid = 0;
+        
+        // 这里start+1， 最后如果没有找到target， 那么会剩下两个数，
+        // 一个是A[start]，另一个是A[end]
+        while(start+1 < end) {
+            mid = (start+end)/2;
+            if(A[mid] == target) {
+                return mid;
+            } else if (A[mid] > target) {
+                end = mid;
+            } else {
+                start = mid;
+            }
+        }
+        
+        // 这里只需要判断，如果start>=target， 则在start的位置。 反之，如果  A[end] >= target > A[start]
+        // 那么，需要加在end这一个位置
+        if(A[start] >= target) return start;
+        else if(A[end] >= target) return end;
+        
+        return end+1;
+    }
+}
