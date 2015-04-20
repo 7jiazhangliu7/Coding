@@ -1,0 +1,39 @@
+//https://leetcode.com/problems/search-in-rotated-sorted-array/
+
+public class Solution {
+    public int search(int[] A, int target) {
+        if(A == null || A.length == 0) return -1;
+        
+        int start = 0, end = A.length-1;
+        int mid = 0;
+        
+        while(start+1 < end) {
+            mid = (start+end)/2;
+            if(A[mid] == target) {
+                return mid;
+            } else if(A[start] < A[mid]) {
+            //如果左半边是升序，则判断target是否在start和mid中间
+                if(target < A[mid] && target >= A[start]) {
+                    end = mid;
+                } else {
+                    start = mid;
+                }
+            } else {
+            //如果右半边是升序， 则判断target是否在mid和end中间
+                if(target >= A[mid] && target <= A[end]) {
+                    start = mid;
+                } else {
+                    end = mid;
+                }
+            }
+        }
+        
+        if (A[start] == target) {
+            return start;
+        } else if (A[end] == target) {
+            return end;
+        }
+        
+        return -1;
+    }
+}
