@@ -1,0 +1,35 @@
+//https://leetcode.com/problems/binary-tree-maximum-path-sum/
+
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    int max = Integer.MIN_VALUE;
+    public int maxPathSum(TreeNode root) {
+        helper(root);
+        return max;
+    }
+    //贼聪明， 这个method return 从叶子节点到node的最大和，下一次再往上一层的recursion，就可以通过左右孩子的最大和+当前node
+    //的值，来判断更新max
+    public int helper(TreeNode node) {
+        if (node == null) return 0;
+        
+        //先找到左右孩子的最大值，如果小于零，那么就不用加到下面的计算中了，因为负数只会让总值变小
+        int left = Math.max(0, helper(node.left));
+        int right = Math.max(0, helper(node.right));
+        
+        //更新max， 如果左右其中有为负数的，这里也只会加0。
+        // 例如，左和为负数， 那么上边设为了0， 这里只考虑和右孩子加起来的值， 同理，如果左右都为负数，这里只加自己的值，
+        // 这样再比较至少总和不会表少
+        max = Math.max(max, node.val+left+right);
+        
+        //这里就return 从下面孩子们到当前这个node的最大和
+        return node.val + Math.max(left,right);
+    }
+}
