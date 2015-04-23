@@ -1,0 +1,45 @@
+//https://leetcode.com/problems/minimum-depth-of-binary-tree/
+
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    int level = 0;
+    public int minDepth(TreeNode root) {
+        if(root == null) return 0;
+        
+        Queue<TreeNode> curr = new LinkedList<TreeNode>();
+        Queue<TreeNode> next = new LinkedList<TreeNode>();
+        
+        curr.add(root);
+        //用两个queue来做bfs，第一个node（如果左右孩子为空）， 那么这里就是min depth
+        while(!curr.isEmpty()){
+            TreeNode node = curr.remove();
+            
+            if(node.left == null && node.right == null) return level+1;
+            
+            if(node.left == null) {
+                next.add(node.right);
+            } else if(node.right == null){
+                next.add(node.left);
+            } else {
+                next.add(node.left);
+                next.add(node.right);
+            }
+            
+            if(curr.isEmpty()) {
+                curr = next;
+                next = new LinkedList<TreeNode>();
+                level++;
+            }
+        }
+        
+        return level;
+    }
+}
