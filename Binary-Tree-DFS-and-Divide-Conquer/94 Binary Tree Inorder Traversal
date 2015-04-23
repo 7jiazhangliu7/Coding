@@ -1,0 +1,40 @@
+//https://leetcode.com/problems/binary-tree-inorder-traversal/
+
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new LinkedList<Integer>();
+        if(root == null) return result;
+        
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode p = root;
+        //先把左孩子全部加进去，reverse order
+        while(p != null){  // 这里要用p != null ！！！！
+            stack.push(p);
+            p = p.left;
+        }
+        
+        while(!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            
+            result.add(node.val);
+            
+            // 移动到当前根的右边
+            node = node.right;
+            while(node != null) {
+                stack.push(node);
+                node = node.left; //继续加左孩子进stack去
+            }
+        }
+        
+        return result;
+    }
+}
