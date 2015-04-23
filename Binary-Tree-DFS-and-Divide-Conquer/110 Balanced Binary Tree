@@ -1,0 +1,36 @@
+//https://leetcode.com/problems/balanced-binary-tree/
+
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public boolean isBalanced(TreeNode root) {
+        if(root == null) return true;
+        
+        return helper(root) != -1;
+    }
+    
+    //这个helper用来检查当前node的balance情况，并且return -1 if 子孩子高度差超过或等于2
+    // 如果都合法，则return 左右孩子高度大的那个，并且+1代表自己这层的高度，return的值用于之后更高层recursion的比较
+    public int helper(TreeNode node) {
+        if(node == null) return 0;
+        
+        int left = helper(node.left);
+        if(left == -1) return -1;
+        
+        int right = helper(node.right);
+        if(right == -1) return -1;
+        
+        if(Math.abs(left - right) <= 1) {
+            return Math.max(left, right) + 1;
+        } else {
+            return -1;
+        }
+    }
+}
