@@ -9,6 +9,8 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+ 
+ O(n) time and O(height of tree) space
 public class Solution {
     int max = 0;
     public int maxDepth(TreeNode root) {
