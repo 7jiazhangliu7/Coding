@@ -14,6 +14,8 @@ public class Solution {
         List<Integer> result = new LinkedList<Integer>();
         if(root == null) return result;
         
+        // 用一个stack来操作，因为preorder 是先根，再左，再右
+        // 然后用stack的话，可以先处理根，然后再加入右孩子，再左孩子，这样pop的时候正好是根左右顺序
         Stack<TreeNode> stack = new Stack<TreeNode>();
         
         stack.push(root);
