@@ -1,5 +1,8 @@
 //https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
 
+O(n) time since array is O(1) access time and we have to do this for n elements
+O(1) space since no extra space used if ignore system stack use for recursion
+
 /**
  * Definition for binary tree
  * public class TreeNode {
