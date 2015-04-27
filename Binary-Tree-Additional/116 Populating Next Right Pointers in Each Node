@@ -1,0 +1,32 @@
+//https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+
+/**
+ * Definition for binary tree with next pointer.
+ * public class TreeLinkNode {
+ *     int val;
+ *     TreeLinkNode left, right, next;
+ *     TreeLinkNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        if(root == null) return;
+        
+        helper(root.left, root.right);
+    }
+    
+    //这里就是两个点，左和右
+    //如果其中一个为null，就return。 然后把左孩子的所有孩子连起来
+    //然后继续把左孩子的右和右孩子的左连起来，最后连右孩子自己的sub child
+    public void helper(TreeLinkNode left, TreeLinkNode right) {
+        if(left == null || right == null) return;
+        
+        helper(left.left, left.right);
+        
+        left.next = right;
+        
+        helper(left.right, right.left);
+        
+        helper(right.left, right.right);
+    }
+}
