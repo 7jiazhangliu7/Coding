@@ -1,0 +1,14 @@
+A little bit on balancing
+
+There are 2 ways to balance a tree. Most common method is tree rotation:
+
+
+
+An AVL Trees means a self-balancing search trees. If balance gets out of range −1…+1, 
+the subtree is rotated to bring into balance.
+
+Second way is to convert tree into a linkedlist, then build the tree again (we have 
+discussed this algorithm before, pick the middle element).
+
+This method is slow if we insert and re-balance on each step, but we can do bulk insert/delete 
+forgetting about the re-balancing for a while. This will make the data structure faster! more details
