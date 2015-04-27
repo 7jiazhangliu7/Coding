@@ -1,5 +1,8 @@
 https://leetcode.com/problems/validate-binary-search-tree/
 
+O(N) time because we have to check every node in the tree
+O(1) space if ignore system stack for recursion
+
 /**
  * Definition for binary tree
  * public class TreeNode {
