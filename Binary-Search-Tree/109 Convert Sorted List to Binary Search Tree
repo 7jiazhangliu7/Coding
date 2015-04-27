@@ -1,0 +1,42 @@
+https://leetcode.com/submissions/detail/25623575/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; next = null; }
+ * }
+ */
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode sortedListToBST(ListNode head) {
+        if(head == null) return null;
+        if(head.next == null) return new TreeNode(head.val);
+        
+        ListNode fast = head, slow = head, dummy = new ListNode(-1);
+        
+        while(fast != null && fast.next != null) {
+            fast = fast.next.next;
+            dummy = slow;
+            slow = slow.next;
+        }
+        
+        TreeNode root = new TreeNode(slow.val);
+        
+        //这里需要先处理右边，再处理左边，反之不work，idk why...
+        root.right = sortedListToBST(slow.next);
+        dummy.next = null;
+        root.left = sortedListToBST(head);
+        
+        return root;
+    }
+}
