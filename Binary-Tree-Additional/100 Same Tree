@@ -1,5 +1,7 @@
 //https://leetcode.com/problems/same-tree/
 
+O(n) time and O(1) space
+
 /**
  * Definition for binary tree
  * public class TreeNode {
