@@ -1,5 +1,8 @@
 https://leetcode.com/submissions/detail/25623575/
 
+O(nlgn) time because n/2 each level and lgn level in total
+O(n) space becase every node we create a new TreeNode
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
