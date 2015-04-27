@@ -1,0 +1,57 @@
+//https://leetcode.com/problems/recover-binary-search-tree/
+
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+ 
+ //这题其实很简单，就是利用两个pointer，来记录第一次和第二次出现的错误节点
+ //如果用中序遍历，一个正常的BST应该是升序，如果出现了降序，则表示有错位
+ //分两种情况：1.相邻的两个错位， 2.不相邻的两个错位
+ //        4                                       4
+       3       6                               6       2
+     1   2   5   7                           1   3   5   7
+
+中序遍历结果：
+    1 3 2 4 5 6 7                           1 6 3 4 5 2 7
+      — —                                     — —   — —   
+    下划线的地方出现了降序，证明有错位。
+    第一种情况，只有一个降序，代表他俩错位了，直接换
+    右边的情况有两处降序，图中可知，第一次的前一个和第二次的后一个错位，所以只需要记录下来
+    最后swap value 即可
+    
+public class Solution {
+    TreeNode first = null, second = null;
+    TreeNode pre = new TreeNode(Integer.MIN_VALUE);
+    public void recoverTree(TreeNode root) {
+        if(root == null) return;
+        
+        helper(root);
+        
+        int temp = first.val;
+        first.val = second.val;
+        second.val = temp;
+    }
+    
+    public void helper(TreeNode node){
+        if(node == null) return;
+        
+        helper(node.left);
+        if(pre.val > node.val) {
+            if(first == null) {
+                first = pre;
+                second = node;
+            } else {
+                second = node;
+            }
+        } 
+        
+        pre = node;
+        helper(node.right);
+    }
+}
