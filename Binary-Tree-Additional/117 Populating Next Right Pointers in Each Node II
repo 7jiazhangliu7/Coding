@@ -1,0 +1,32 @@
+//https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/
+
+/**
+ * Definition for binary tree with next pointer.
+ * public class TreeLinkNode {
+ *     int val;
+ *     TreeLinkNode left, right, next;
+ *     TreeLinkNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        if(root == null) return;
+        LinkedList<TreeLinkNode> list = new LinkedList<TreeLinkNode>();
+        list.add(root);
+        
+        // bfs solution
+        // 非常简洁的代码though
+        
+        while(!list.isEmpty()) {
+            LinkedList<TreeLinkNode> nextLevel = new LinkedList<TreeLinkNode>();
+            
+            while(!list.isEmpty()) {
+                TreeLinkNode node = list.remove();
+                /*<!!!*/if(!list.isEmpty())/*/!!!>*/  node.next = list.get(0);
+                if(node.left != null) nextLevel.add(node.left);
+                if(node.right != null) nextLevel.add(node.right);
+            }
+            list = nextLevel;
+        }
+    }
+}
