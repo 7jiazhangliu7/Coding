@@ -1,0 +1,39 @@
+//https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head == null || head.next == null) return head;
+        
+        ListNode dummy = new ListNode(Integer.MIN_VALUE);
+        dummy.next = head;
+        
+        ListNode pre = dummy;
+        //从dummy 开始，根据template，检查dummy的下一个不为null
+        while(pre.next != null) {
+            //从pre下一个开始，如果下一个和下下一个相等，则出现了重复，直到下一个不重复的位置
+            ListNode n = pre.next;
+            while(n.next != null && n.val == n.next.val) {
+                n = n.next;
+            }
+            
+            //这里检查，如果两个点相邻证明没出现重复，移动pre
+            if(pre.next == n) {
+                pre = pre.next;
+            } else {
+                //这里代表出现了重复，只需要更新link，不需要移动pre指针
+                pre.next = n.next;
+            }
+
+        }
+        
+        return dummy.next;
+    }
+}
