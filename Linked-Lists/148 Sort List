@@ -1,0 +1,48 @@
+//https://leetcode.com/problems/sort-list/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode sortList(ListNode head) {
+        if(head == null || head.next == null) return head;
+        
+        ListNode fast = head, slow = head;
+        ListNode pre = null;
+        while(fast!= null && fast.next != null) {
+            fast = fast.next.next;
+            pre = slow;
+            slow = slow.next;
+        }
+        
+        pre.next = null;
+        
+        return mergeTwoLists(sortList(head), sortList(slow));
+        
+    }
+    
+// The following code is copied from
+// Question - Merge Two Sorted Lists
+public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode pre = new ListNode(Integer.MIN_VALUE);
+        ListNode cur = pre;
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                cur.next = l1;
+                l1 = l1.next;
+            } else {
+                cur.next = l2;
+                l2 = l2.next;
+            }
+            cur = cur.next;
+        }
+        if (l1 == null) cur.next = l2;
+        else cur.next = l1;
+        return pre.next;
+    }
+}
