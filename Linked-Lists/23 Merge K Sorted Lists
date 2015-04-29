@@ -1,0 +1,48 @@
+//https://leetcode.com/problems/merge-k-sorted-lists/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+ k: number of nodes in lists
+ n: length of each list
+ 
+ O(nklgk) time
+ 用PriorityQueue 数据结构，每次把list的各个node的head放进PriorityQueue中
+ 然后用lgk时间,找到k个中间最小的，再把下一个放进PriorityQueue里
+public class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists == null || lists.length == 0) return null;
+        
+        Queue<ListNode> heap = new PriorityQueue(lists.length, new NodeComparator());
+        
+        for(ListNode nodes : lists) {
+            if(nodes != null)
+                heap.add(nodes);
+        }
+        
+        ListNode dummy = new ListNode(Integer.MIN_VALUE);
+        ListNode n = dummy;
+        
+        while(!heap.isEmpty()) {
+            ListNode node = heap.remove();
+            n.next = node;
+            n = n.next;
+            if(node.next != null) {
+                heap.add(node.next);
+            }
+        }
+        
+        return dummy.next;
+    }
+    
+    class NodeComparator implements Comparator<ListNode> {
+        public int compare(ListNode n1, ListNode n2) {
+            return n1.val - n2.val;
+        }
+    }
+}
