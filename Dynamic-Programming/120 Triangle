@@ -1,0 +1,18 @@
+//https://leetcode.com/problems/triangle/
+
+O()
+
+public class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        if(triangle == null || triangle.size() == 0) return Integer.MAX_VALUE;
+        
+        for(int i = triangle.size()-2; i >= 0; i--) {
+            List<Integer> curr = triangle.get(i);
+            for(int j = 0; j < curr.size(); j++){
+                curr.set(j,curr.get(j)+Math.min(triangle.get(i+1).get(j), triangle.get(i+1).get(j+1)));
+            }
+        }
+        
+        return triangle.get(0).get(0);
+    }
+}
