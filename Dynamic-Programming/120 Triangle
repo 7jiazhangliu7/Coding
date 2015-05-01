@@ -1,6 +1,6 @@
 //https://leetcode.com/problems/triangle/
 
-O()
+O(N) time O(1) space
 
 public class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
