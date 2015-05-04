@@ -1,0 +1,31 @@
+//https://leetcode.com/problems/jump-game-ii/
+
+public class Solution {
+    public int jump(int[] A) {
+        if(A.length == 0 || A.length == 1) return 0;
+        if(A == null) return -1;
+        
+        // temp is used to record furthest distance can go
+        int temp = 0;
+        int max = 0;
+        int count = 0;
+        
+        for(int i = 0; i < A.length;){
+            // if we go beyond the end, we break the loop
+            if(temp >= A.length-1) break;
+            
+            // for current positoin i to the furthest position temp
+            // we find the new furthest position we can go
+            while(i <= temp){
+                max = Math.max(max, i + A[i]);
+                i++;
+            }
+            //update count by 1;
+            count++;
+            // update the new furthest position
+            temp = max;
+        }
+        
+        return count;
+    }
+}
