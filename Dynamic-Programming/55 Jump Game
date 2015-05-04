@@ -1,0 +1,20 @@
+//https://leetcode.com/problems/jump-game/
+
+public class Solution {
+    public boolean canJump(int[] nums) {
+        if(nums == null || nums.length <= 1) return true;
+        
+        int curr = 0, left = 0;
+        
+        //两个指针，一个代表当前位置，另一个代表左边的处理中的index
+        //然后每次更新curr和left+nums[curr],如果哪个远就用哪个
+        
+        //dp思想，curr代表当前能走的最远的位置，如果left赶上了curr，代表无法往前了
+        while(curr < nums.length && left <= curr) {
+            curr = Math.max(curr, left+nums[left]);
+            left++;
+        }
+        
+        return curr >= nums.length-1;
+    }
+}
