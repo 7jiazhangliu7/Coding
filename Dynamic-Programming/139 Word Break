@@ -1,0 +1,22 @@
+//https://leetcode.com/problems/word-break/
+
+public class Solution {
+    public boolean wordBreak(String s, Set<String> wordDict) {
+        if(s == null || s.length() == 0) return false;
+        
+        boolean[] dp = new boolean[s.length()+1];
+        dp[0] = true;
+        
+        // 外层loop用来检查dp表每一个index， 内层loop用来看之前的结果并且判断是否更新
+        for(int i = 1; i <= s.length(); i++) {
+            for(int j = 0; j < i; j++) {
+                if(dp[j] && wordDict.contains(s.substring(j,i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        
+        return dp[s.length()];
+    }
+}
