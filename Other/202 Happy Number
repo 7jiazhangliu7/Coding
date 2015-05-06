@@ -1,0 +1,28 @@
+//https://leetcode.com/problems/happy-number/
+
+public class Solution {
+    public boolean isHappy(int n) {
+        if (n <= 0) return false;
+        
+        while(helper(n) != 1) {
+            n = helper(n);
+            
+            // this is because it will eventually become 4 if its not happy
+            // by example.....
+            if(n == 4) return false;
+        }
+        
+        return true;
+    }
+    
+    public int helper(int n) {
+        int result = 0;
+        
+        while(n > 0) {
+            result += (n%10) * (n%10);
+            n = n/10;
+        }
+        
+        return result;
+    }
+}
