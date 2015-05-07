@@ -1,0 +1,19 @@
+//https://leetcode.com/problems/single-number-ii/
+
+public class Solution {
+    public int singleNumber(int[] nums) {
+        if(nums == null || nums.length == 0) return -1;
+        int[] bits = new int[32];
+        int result = 0;
+        for(int i = 0; i < 32; i++) {
+            for(int j = 0; j < nums.length; j++) {
+                //这里需要判断，如果是0，就加0， 如果不是，则加1， 而不是加nums[j] & (1<<i)
+                bits[i] += (nums[j] & (1<<i)) == 0 ? 0 : 1;
+            }
+            bits[i] %= 3;
+            result |= bits[i] << i;
+        }
+        
+        return result;
+    }
+}
