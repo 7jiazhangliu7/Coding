@@ -1,0 +1,21 @@
+//https://leetcode.com/problems/maximum-subarray/
+
+public class Solution {
+    public int maxSubArray(int[] nums) {
+        if(nums == null || nums.length == 0) {
+            return Integer.MIN_VALUE;
+        }
+        
+        int max = Integer.MIN_VALUE;
+        int pre = 0;
+        
+        //之前的加当前的如果大于max，就更新
+        //如果pre+当前的小于零，则没有帮助，设为零
+        for(int i = 0; i < nums.length; i++) {
+            max = Math.max(pre + nums[i], max);
+            pre = Math.max(0, pre+nums[i]);
+        }
+        
+        return max;
+    }
+}
