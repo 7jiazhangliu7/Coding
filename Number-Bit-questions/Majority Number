@@ -1,0 +1,30 @@
+//http://www.lintcode.com/en/problem/majority-number/
+
+public class Solution {
+    /**
+     * @param nums: a list of integers
+     * @return: find a  majority number
+     */
+    public int majorityNumber(ArrayList<Integer> nums) {
+        // write your code
+        if(nums == null || nums.size() == 0) return -1;
+        
+        int maj_index = 0, count = 1;
+        //Majority Number就是数量超过一半的，所以只需要检查，用多的抵消其他的，剩下的必然是Majority Number
+        for(int i = 1; i < nums.size(); i++) {
+            if(nums.get(maj_index) == nums.get(i)) {
+                count++;
+            } else {
+                count--;
+            }
+            
+            if(count == 0) {
+                maj_index = i;
+                count = 1;
+            }
+        }
+        
+        return nums.get(maj_index);
+    }
+}
+
