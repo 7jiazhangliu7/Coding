@@ -1,0 +1,40 @@
+//https://leetcode.com/problems/3sum/
+
+public class Solution {
+    public LinkedList<LinkedList<Integer>> threeSum(int[] nums) {
+        LinkedList<Integer> tmp = new LinkedList<Integer>();
+        LinkedList<LinkedList<Integer>> result = new LinkedList<LinkedList<Integer>>();
+        if(nums == null || nums.length < 3) return result;
+        
+        Arrays.sort(nums);
+        
+        for(int start = 0; start < nums.length-2; start++) {
+            int neg = -1 * nums[start];
+            //记得要判断，如果nums[start] = nums[start-1]，则跳过处理避免duplication
+            if (start == 0 || nums[start] > nums[start - 1]) {
+                int end = nums.length-1, mid = start+1;
+                
+                while(mid < end) {
+                    if(nums[mid] + nums[end] == neg) {
+                        tmp.add(nums[start]);
+                        tmp.add(nums[mid]);
+                        tmp.add(nums[end]);
+                        result.add(tmp);
+                        tmp = new LinkedList<Integer>();
+                        mid++;
+                        end--;
+                        //先++ --， 再看是否重复，再去重
+                        while(mid < end && nums[mid] == nums[mid-1]) mid++;
+                        while(end > mid && nums[end] == nums[end+1]) end--;
+                    } else if (nums[mid] + nums[end] > neg) {
+                        end--;
+                    } else {
+                        mid++;
+                    }
+                }
+            }
+        }
+        
+        return result;
+    }
+}
