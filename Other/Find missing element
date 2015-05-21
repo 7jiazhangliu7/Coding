@@ -1,0 +1,26 @@
+/**
+ * Created by Jiazhang_Liu on 5/21/2015.
+ */
+public class FindMissingElement {
+    public int missing(int[] array) {
+        if(array == null || array.length == 0) return Integer.MIN_VALUE;
+
+        int length = array.length;
+
+        int idealSum = (array[0]+array[length-1]) * (length+1) / 2;
+
+        int actualSum = 0;
+        for(Integer i : array) {
+            actualSum += i;
+        }
+
+        return idealSum - actualSum;
+    }
+
+    public static void main(String args[]) {
+        FindMissingElement i = new FindMissingElement();
+        int[] array = {1,2,3,4,5,7,8,9,10};
+
+        System.err.println(i.missing(array));
+    }
+}
