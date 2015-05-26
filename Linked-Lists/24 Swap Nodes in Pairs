@@ -31,3 +31,34 @@ public class Solution {
         return dummy.next;
     }
 }
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if(head == null || head.next == null) return head;
+        
+        ListNode dummy = new ListNode(Integer.MIN_VALUE);
+        dummy.next = head;
+        ListNode temp = head.next;
+        ListNode d = dummy;
+        
+        while(head != null && head.next!= null && temp != null) {
+            d.next = temp;
+            head.next = temp.next;
+            temp.next = head;
+            d = head;
+            head = head.next;
+            if(head == null) break;
+            temp = head.next;
+        }
+        
+        return dummy.next;
+    }
+}
